@@ -9,6 +9,11 @@ public class PlayerMovement : MonoBehaviour
 
     public Rigidbody rb;
 
+    public bool stopUp = false;
+    public bool stopDown = false;
+    public bool stopLeft = false;
+    public bool stopRight = false;
+
     Vector3 movement;
 
     public AudioClip A1;
@@ -41,19 +46,19 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("up"))
+        if (Input.GetKeyDown("up") && !stopUp)
         {
             transform.Translate(0, 0, -2.5f);
         }
-        if (Input.GetKeyDown("down"))
+        if (Input.GetKeyDown("down") && !stopDown)
         {
             transform.Translate(0, 0, 2.5f);
         }
-        if (Input.GetKeyDown("left"))
+        if (Input.GetKeyDown("left") && !stopLeft)
         {
             transform.Translate(2.5f, 0, 0);
         }
-        if (Input.GetKeyDown("right"))
+        if (Input.GetKeyDown("right") && !stopRight)
         {
             transform.Translate(-2.5f, 0, 0);
         }
@@ -66,82 +71,167 @@ public class PlayerMovement : MonoBehaviour
         {
             audio.clip = A1;
             audio.Play();
+            stopUp = false;
+            stopDown = true;
+            stopLeft = true;
+            stopRight = false;
         }
-        if (other.gameObject.tag == "A2_3")
+        
+
+        else if (other.gameObject.tag == "A2_3")
         {
             audio.clip = A2;
             audio.Play();
+            stopUp = true;
+            stopDown = false;
+            stopLeft = true;
+            stopRight = true;
         }
-        if (other.gameObject.tag == "A3_3")
+
+
+        else if (other.gameObject.tag == "A3_3")
         {
             audio.clip = A3;
             audio.Play();
+            stopUp = true;
+            stopDown = true;
+            stopLeft = true;
+            stopRight = true;
         }
-        if (other.gameObject.tag == "A4_3")
+
+
+        else if (other.gameObject.tag == "A4_3")
         {
             audio.clip = A4;
             audio.Play();
+            stopUp = true;
+            stopDown = false;
+            stopLeft = true;
+            stopRight = false;
         }
 
+
         //B--------------------------------
-        if (other.gameObject.tag == "B1_3")
+        else if(other.gameObject.tag == "B1_3")
         {
             audio.clip = B1;
             audio.Play();
+            stopUp = false;
+            stopDown = true;
+            stopLeft = false;
+            stopRight = true;
         }
-        if (other.gameObject.tag == "B2_3")
+
+
+        else if(other.gameObject.tag == "B2_3")
         {
             audio.clip = B2;
             audio.Play();
+            stopUp = true;
+            stopDown = false;
+            stopLeft = true;
+            stopRight = false;
         }
-        if (other.gameObject.tag == "B3_3")
+
+
+        else if(other.gameObject.tag == "B3_3")
         {
             audio.clip = B3;
             audio.Play();
+            stopUp = false;
+            stopDown = true;
+            stopLeft = true;
+            stopRight = false;
         }
-        if (other.gameObject.tag == "B4_3")
+
+
+        else if(other.gameObject.tag == "B4_3")
         {
             audio.clip = B4;
             audio.Play();
+            stopUp = true;
+            stopDown = false;
+            stopLeft = false;
+            stopRight = false;
         }
 
+
         //C--------------------------------
-        if (other.gameObject.tag == "C2_3")
+        else if(other.gameObject.tag == "C2_3")
         {
             audio.clip = C2;
             audio.Play();
+            stopUp = false;
+            stopDown = true;
+            stopLeft = false;
+            stopRight = false;
         }
-        if (other.gameObject.tag == "C3_3")
+
+
+        else if(other.gameObject.tag == "C3_3")
         {
             audio.clip = C3;
             audio.Play();
+            stopUp = false;
+            stopDown = false;
+            stopLeft = false;
+            stopRight = false;
         }
-        if (other.gameObject.tag == "C4_3")
+
+        else if(other.gameObject.tag == "C4_3")
         {
             audio.clip = C4;
             audio.Play();
+            stopUp = true;
+            stopDown = false;
+            stopLeft = false;
+            stopRight = false;
         }
 
+
         //D--------------------------------
-        if (other.gameObject.tag == "D1_3")
+        else if(other.gameObject.tag == "D1_3")
         {
             audio.clip = D1;
             audio.Play();
+            stopUp = false;
+            stopDown = true;
+            stopLeft = true;
+            stopRight = true;
         }
-        if (other.gameObject.tag == "D2_3")
+
+
+        else if(other.gameObject.tag == "D2_3")
         {
             audio.clip = D2;
             audio.Play();
+            stopUp = true;
+            stopDown = false;
+            stopLeft = false;
+            stopRight = true;
         }
-        if (other.gameObject.tag == "D3_3")
+
+
+        else if(other.gameObject.tag == "D3_3")
         {
             audio.clip = D3;
             audio.Play();
+            stopUp = true;
+            stopDown = true;
+            stopLeft = false;
+            stopRight = true;
         }
-        if (other.gameObject.tag == "D4_3")
+
+
+        else if(other.gameObject.tag == "D4_3")
         {
             audio.clip = D4;
             audio.Play();
+            stopUp = true;
+            stopDown = true;
+            stopLeft = false;
+            stopRight = true;
         }
+
     }
 }
