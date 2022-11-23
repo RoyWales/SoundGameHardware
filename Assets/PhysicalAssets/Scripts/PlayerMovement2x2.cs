@@ -5,10 +5,13 @@ using UnityEngine;
 public class PlayerMovement2x2 : MonoBehaviour
 {
 
+    public Arduino_code ArdunioInfo;
+   
     public float moveSpeed = 5.0f;
 
     public Rigidbody rb;
 
+    
     public bool stopUp = false;
     public bool stopDown = false;
     public bool stopLeft = false;
@@ -33,21 +36,29 @@ public class PlayerMovement2x2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("up") && !stopUp)
+        
+        if ((Input.GetKeyDown("up") && !stopUp) || (ArdunioInfo.state == 4 && ArdunioInfo.b1Pressed && !stopUp))
         {
-            transform.Translate(0, 0, -5.3f);
+           
+            transform.Translate(0, 0, -50f * Time.deltaTime);
+           
         }
-        if (Input.GetKeyDown("down") && !stopDown)
+        if ((Input.GetKeyDown("down") && !stopDown) || (ArdunioInfo.state == 3 && ArdunioInfo.b1Pressed && !stopDown))
         {
-            transform.Translate(0, 0, 5.3f);
+            transform.Translate(0, 0, 50f * Time.deltaTime);
+            
         }
-        if (Input.GetKeyDown("left") && !stopLeft)
+        if ((Input.GetKeyDown("left") && !stopLeft) || (ArdunioInfo.state == 1 && ArdunioInfo.b1Pressed && !stopLeft))
         {
-            transform.Translate(5.3f, 0, 0);
+          
+            transform.Translate(50f * Time.deltaTime, 0, 0);
+           
         }
-        if (Input.GetKeyDown("right") && !stopRight)
+        if ((Input.GetKeyDown("right") && !stopRight) || (ArdunioInfo.state == 2 && ArdunioInfo.b1Pressed && !stopRight))
         {
-            transform.Translate(-5.3f, 0, 0);
+           
+            transform.Translate(-50f* Time.deltaTime, 0, 0);
+          
         }
     }
 
@@ -94,4 +105,5 @@ public class PlayerMovement2x2 : MonoBehaviour
             stopRight = true;
         }
     }
+
 }

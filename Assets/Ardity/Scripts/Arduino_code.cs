@@ -18,7 +18,7 @@ public class Arduino_code : MonoBehaviour
 {
     public int state = 0;
     public bool b1Pressed = false;
-
+    public string messageHolder = "";
     public SerialController serialController;
     
     // Initialization
@@ -37,7 +37,7 @@ public class Arduino_code : MonoBehaviour
         //---------------------------------------------------------------------
 
         string message = serialController.ReadSerialMessage();
-
+        
         if (message == null)
             return;
 
@@ -47,17 +47,20 @@ public class Arduino_code : MonoBehaviour
         else if (ReferenceEquals(message, SerialController.SERIAL_DEVICE_DISCONNECTED))
             Debug.Log("Connection attempt failed or disconnection detected");
 
-        if (message == "button 1 pressed")
+       
+        if (message == "button 1 pressed" && state != 0)
         {
             Debug.Log("button 1 pressed");
+            
             b1Pressed = true;
         }
         else
         {
             b1Pressed = false;
         }
+        
 
-        // testing out the buttons and gyroscope
+       /* // testing out the buttons and gyroscope
         if (message == "button 2 pressed")
         {
             Debug.Log("button 2 pressed");
@@ -69,33 +72,51 @@ public class Arduino_code : MonoBehaviour
         {
             Debug.Log("button 3 pressed");
             
-        }
-      
+        }*/
 
-        if (message == "back")
+        if (message == "still")
         {
-            Debug.Log("back");
-            state = 4;
+            Debug.Log("still");
+            state = 0;
         }
-
-        if (message == "front")
-        {
-            Debug.Log("front");
-            state = 2;
-        }
-
-        if (message == "left")
+        else if (message == "left")
         {
             Debug.Log("left");
             state = 1;
         }
-
-        if (message == "right")
+        else if (message == "right")
         {
             Debug.Log("right");
             state = 2;
         }
 
+        else if (message == "back" )
+        {
+            Debug.Log("back");
+            state = 3;
+        }
+
+        else if (message == "front")
+        {
+            Debug.Log("front");
+            state = 4;
+        }
+        
+        
+
+        
+        
 
     }
+
+    public IEnumerator Pause()
+    {
+        yield return new WaitForSeconds(3);
+    }
+
+    public void setState(int s)
+    {
+        state = s;
+    }
+
 }
