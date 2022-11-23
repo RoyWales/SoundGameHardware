@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+
+public class PlayerMovement : Arduino_code
 {
 
     public float moveSpeed = 5.0f;
@@ -46,19 +47,19 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("up") && !stopUp)
+        if ((Input.GetKeyDown("up") && !stopUp) || (state == 4 && b1Pressed && !stopUp))
         {
             transform.Translate(0, 0, -2.5f);
         }
-        if (Input.GetKeyDown("down") && !stopDown)
+        if ((Input.GetKeyDown("down") && !stopDown) || (state == 3 && b1Pressed && !stopDown))
         {
             transform.Translate(0, 0, 2.5f);
         }
-        if (Input.GetKeyDown("left") && !stopLeft)
+        if ((Input.GetKeyDown("left") && !stopLeft) || (state == 1 && b1Pressed && !stopLeft))
         {
             transform.Translate(2.5f, 0, 0);
         }
-        if (Input.GetKeyDown("right") && !stopRight)
+        if ((Input.GetKeyDown("right") && !stopRight) || (state == 2 && b1Pressed && !stopRight))
         {
             transform.Translate(-2.5f, 0, 0);
         }
