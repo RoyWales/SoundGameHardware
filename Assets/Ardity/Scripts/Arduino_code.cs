@@ -18,7 +18,8 @@ public class Arduino_code : MonoBehaviour
 {
     public int state = 0;
     public bool b1Pressed = false;
-    public string messageHolder = "";
+    public bool b2Pressed = false;
+    public bool b3Pressed = false;
     public SerialController serialController;
     
     // Initialization
@@ -51,7 +52,7 @@ public class Arduino_code : MonoBehaviour
         if (message == "button 1 pressed" && state != 0)
         {
             Debug.Log("button 1 pressed");
-            
+            // StartCoroutine(Pauseb1());
             b1Pressed = true;
         }
         else
@@ -60,19 +61,26 @@ public class Arduino_code : MonoBehaviour
         }
         
 
-       /* // testing out the buttons and gyroscope
         if (message == "button 2 pressed")
         {
             Debug.Log("button 2 pressed");
-            
+            b2Pressed = true;
+        }
+        else
+        {
+            b2Pressed = false;
         }
         
-
+        
         if (message == "button 3 pressed")
         {
             Debug.Log("button 3 pressed");
-            
-        }*/
+            b3Pressed = true;
+        }
+        else
+        {
+            b3Pressed = false;
+        }
 
         if (message == "still")
         {
@@ -109,11 +117,7 @@ public class Arduino_code : MonoBehaviour
 
     }
 
-    public IEnumerator Pause()
-    {
-        yield return new WaitForSeconds(3);
-    }
-
+   
     public void setState(int s)
     {
         state = s;

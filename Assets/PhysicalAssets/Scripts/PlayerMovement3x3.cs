@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement3x3 : MonoBehaviour
 {
 
+    public Arduino_code ArdunioInfo;
     public float moveSpeed = 5.0f;
-
+    public float x, y, z;
+    public bool stop = false;
     public Rigidbody rb;
 
     public bool stopUp = false;
@@ -33,27 +36,54 @@ public class PlayerMovement3x3 : MonoBehaviour
     void Start()
     {
         audio = GetComponent<AudioSource>();
+        x = transform.position.x;
+        y = transform.position.y;
+        z = transform.position.z;
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("up") && !stopUp)
+        if (Input.GetKeyDown(KeyCode.R) || ArdunioInfo.b2Pressed) //reset
         {
-            transform.Translate(0, 0, -3.5f);
+            transform.position = new Vector3(-2.42f, 0.351f, 2.29f);
+            x = -2.42f;
+            y = 0.351f;
+            z = 2.29f;
+
         }
-        if (Input.GetKeyDown("down") && !stopDown)
+        if (Input.GetKeyDown(KeyCode.M) || ArdunioInfo.b3Pressed) //reset
         {
-            transform.Translate(0, 0, 3.5f);
+            SceneManager.LoadScene("Map4x4");
         }
-        if (Input.GetKeyDown("left") && !stopLeft)
+
+        if ((Input.GetKeyDown("up") && !stopUp) || (ArdunioInfo.state == 4 && ArdunioInfo.b1Pressed && !stopUp && !stop))
         {
-            transform.Translate(3.5f, 0, 0);
+            z = z - 3.5f;
+            transform.position = new Vector3(x, y, z);
+            stop = true;
+
         }
-        if (Input.GetKeyDown("right") && !stopRight)
+        if ((Input.GetKeyDown("down") && !stopDown) || (ArdunioInfo.state == 3 && ArdunioInfo.b1Pressed && !stopDown && !stop))
         {
-            transform.Translate(-3.5f, 0, 0);
+            z = z + 3.5f;
+            transform.position = new Vector3(x, y, z);
+            stop = true;
+        }
+        if ((Input.GetKeyDown("left") && !stopLeft) || (ArdunioInfo.state == 1 && ArdunioInfo.b1Pressed && !stopLeft && !stop))
+        {
+            x = x + 3.5f;
+            transform.position = new Vector3(x, y, z);
+            stop = true;
+        }
+        if ((Input.GetKeyDown("right") && !stopRight) || (ArdunioInfo.state == 2 && ArdunioInfo.b1Pressed && !stopRight && !stop))
+        {
+
+            x = x - 3.5f;
+            transform.position = new Vector3(x, y, z);
+            stop = true;
+
         }
     }
 
@@ -68,6 +98,7 @@ public class PlayerMovement3x3 : MonoBehaviour
             stopDown = true;
             stopLeft = true;
             stopRight = true;
+            stop = false;
         }
         else if (other.gameObject.tag == "A2_2")
         {
@@ -77,6 +108,7 @@ public class PlayerMovement3x3 : MonoBehaviour
             stopDown = false;
             stopLeft = true;
             stopRight = true;
+            StartCoroutine(Pause());
         }
         else if (other.gameObject.tag == "A3_2")
         {
@@ -86,6 +118,7 @@ public class PlayerMovement3x3 : MonoBehaviour
             stopDown = false;
             stopLeft = true;
             stopRight = false;
+            stop = false;
         }
 
         //B--------------------------------
@@ -97,6 +130,7 @@ public class PlayerMovement3x3 : MonoBehaviour
             stopDown = true;
             stopLeft = true;
             stopRight = false;
+            stop = false;
         }
         else if (other.gameObject.tag == "B2_2")
         {
@@ -106,6 +140,8 @@ public class PlayerMovement3x3 : MonoBehaviour
             stopDown = false;
             stopLeft = true;
             stopRight = true;
+            StartCoroutine(Pause());
+            
         }
         else if (other.gameObject.tag == "B3_2")
         {
@@ -115,6 +151,7 @@ public class PlayerMovement3x3 : MonoBehaviour
             stopDown = false;
             stopLeft = false;
             stopRight = false;
+            StartCoroutine(Pause());
         }
 
         //C--------------------------------
@@ -126,6 +163,7 @@ public class PlayerMovement3x3 : MonoBehaviour
             stopDown = true;
             stopLeft = false;
             stopRight = true;
+            stop = false;
         }
         else if (other.gameObject.tag == "C2_2")
         {
@@ -135,6 +173,7 @@ public class PlayerMovement3x3 : MonoBehaviour
             stopDown = false;
             stopLeft = true;
             stopRight = true;
+            stop = false;
         }
         else if (other.gameObject.tag == "C3_2")
         {
@@ -144,8 +183,15 @@ public class PlayerMovement3x3 : MonoBehaviour
             stopDown = true;
             stopLeft = false;
             stopRight = true;
+            stop = false;
         }
 
 
+    }
+    public IEnumerator Pause()
+    {
+        
+        yield return new WaitForSeconds(1f);
+        stop = false;
     }
 }

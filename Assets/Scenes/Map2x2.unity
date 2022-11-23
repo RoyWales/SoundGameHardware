@@ -2138,8 +2138,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ArdunioInfo: {fileID: 1994671761}
+  player: {fileID: 0}
   moveSpeed: 5
+  x: 0
+  y: 0
+  z: 0
   rb: {fileID: 0}
+  stop: 0
   stopUp: 0
   stopDown: 0
   stopLeft: 0
@@ -2162,5 +2167,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   b1Pressed: 0
-  messageHolder: 
+  b2Pressed: 0
+  b3Pressed: 0
   serialController: {fileID: 225952622}
